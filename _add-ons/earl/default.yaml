@@ -1,0 +1,27 @@
+# Settings for E.A.R.L.
+
+# Base path for all E.A.R.L. links
+#
+# The value can begin with 'http', 'https' or '//'.
+# If a bare URL is provided, '//' will be prepended.
+# Trailing slashes are not required.
+_earl_base: 'http://cdn.example.org'
+
+
+# Settings group for the JS method
+#
+# Leading and trailing slashes are not required.
+_earl_path_js: 'path/to/js/files'
+_earl_ext_js: '.js'
+
+# Settings group for the CSS method
+#
+# Leading and trailing slashes are not required.
+_earl_path_css: 'path/to/css/files'
+_earl_ext_css: '.css'
+
+# Settings group for the Image method
+#
+# Leading and trailing slashes are not required.
+_earl_path_img: 'path/to/img/files'
+# NEVER DEFINE _earl_ext_img
