@@ -12,7 +12,7 @@ class Plugin_earl extends Plugin
 
     var $meta = array(
         'name'       => 'E.A.R.L.',
-        'version'    => '0.1',
+        'version'    => '1.0',
         'author'     => 'Ray Gesualdo',
         'author_url' => 'http://rjgesualdo.com'
     );
