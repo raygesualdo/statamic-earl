@@ -7,6 +7,8 @@ But since I'm such a nice guy, I'll go the extra mile for yuh. I'll even let you
 
 I know yer interested. Keep on readin' down to learn how to use it.
 
+<div class="clearfix">&nbsp;</div>
+
 ##Installation
 1. [Download](https://github.com/raygesualdo/statamic-earl/archive/master.zip) or clone the plugin archive.
 2. Copy `_add-ons/earl` to `_add-ons/earl`
