@@ -1,5 +1,5 @@
 #E.A.R.L. 
-> The __E__xternal __A__sset and __R__esource __L__inker Plugin for Statamic
+> The External Asset and Resource Linker Plugin for Statamic
 
 <img src="./earl.jpg" alt="Earl" height="300px" align="left" style="float:left;">Howdy y'all. Muh name's Earl. I do one thang an' one thang only: I help yuh link to external whirlygigs and thingamabobs from yer Statamic site. Have files on a CDN or some such nonsense that you need to link to? That's why yuh got me. I'll help yuh drop in simple tags that point to where you need. Sounds downright handy don't it? Well, that's cause it is.
 
@@ -29,15 +29,19 @@ The config file has two sections: general settings and config groups. The genera
 
 The config group section is where E.A.R.L. shines. Config groups allow you to set two different variables, one relating to the path and one relating to the extension. Let's take a look at the default settings for the __JS__ group as an example:
 
-    _earl_path_js: 'path/to/js/files'
-    _earl_ext_js: '.js'
+```yaml
+_earl_path_js: 'path/to/js/files'
+_earl_ext_js: '.js'
+```
 
 Notice how both variables end with `_js`. This determines the _config group_ to which this variable belongs. You can leverage this to create config groups of your own and use them by passing the `group` parameter.
 
 I'll show you how this works. Assume you wanted to create a config group for some mp3 files. We would begin by adding the following variables to the config file:
 
-    _earl_path_audio: 'really/long/path/to/buried/audio/files'
-    _earl_ext_audio: '.mp3'
+```yaml
+_earl_path_audio: 'really/long/path/to/buried/audio/files'
+_earl_ext_audio: '.mp3'
+```
 
 Next, we could use these settings by dropping in `{{ earl src="track01" group="audio"}}`. The resulting URL would be `EARLBASEPATH/really/long/path/to/buried/audio/files/track01.mp3`.
 
