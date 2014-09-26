@@ -12,7 +12,7 @@ class Plugin_earl extends Plugin
 
     var $meta = array(
         'name'       => 'E.A.R.L.',
-        'version'    => '1.0',
+        'version'    => '1.1',
         'author'     => 'Ray Gesualdo',
         'author_url' => 'http://rjgesualdo.com'
     );
@@ -46,110 +46,36 @@ class Plugin_earl extends Plugin
      *    
      * @return string
      */
-    static public function __callStatic($method, $args) 
+    public function __call($method, $args) 
     {
-        //TODO: Get this working
-    }
-
-    /**
-     * index function
-     * 
-     * This function process the parameters and calls buildUrl().
-     *
-     * @return string
-     */
-    public function index() 
-    {
-        // Fetch source from tag and exit if empty
-        $src = $this->fetchParam('src', false, null, false, false);    
-        if (!$src)
+        // Fetch source, attributes, tag type and file URL
+        $src = $this->fetchParam('src', Config::getTheme(), null, false, false);     
+        $attr = $this->getAttributes();
+        $tag  = $this->fetchParam('tag', false, null, false, true);
+        $file = $this->buildUrl($src, $method); 
+        
+        // Backwards compatibility with old helpers
+        if ($tag === 'true') $tag = $method;
+        
+        switch ($tag)
         {
-            return NULL;
-        } 
-
-        // Fetch settings group
-        $group = $this->fetchParam('group', false, null, false, true);    
-        
-        return $this->buildUrl($src, $group);
-    }
-
-    /**
-     * js function
-     * 
-     * This function process the parameters and calls buildUrl(). 
-     * An HTML tag can optionally be returned.
-     *
-     * @return string
-     */
-    public function js()
-    {
-        // Fetch source from tag and exit if empty
-        $src = $this->fetchParam('src', false, null, false, false);    
-        if (!$src)
-        {
-            return NULL;
-        }     
-        
-        // Get file URL and tag boolean
-        $file = $this->buildUrl($src, 'js');        
-        $tag = $this->fetchParam('tag', false, null, true, false);
-
-        return ($tag) ? '<script src="' . $file . '"></script>' : $file;
-    }
-
-    /**
-     * css function
-     * 
-     * This function process the parameters and calls buildUrl(). 
-     * An HTML tag can optionally be returned.
-     *
-     * @return string
-     */
-    public function css()
-    {
-        // Fetch source from tag and exit if empty
-        $src = $this->fetchParam('src', false, null, false, false);    
-        if (!$src)
-        {
-            return NULL;
-        } 
-        
-        // Get file URL and tag boolean
-        $file = $this->buildUrl($src, 'css');
-        $tag = $this->fetchParam('tag', false, null, true, false);
-        
-        return ($tag) ? '<link href="' . $file . '" rel="stylesheet">' : $file;
-    }
-
-    /**
-     * img function
-     * 
-     * This function process the parameters and calls buildUrl(). 
-     * An HTML tag with ALT text can optionally be returned.
-     *
-     * @return string
-     */
-    public function img()
-    {
-        // Fetch source from tag and exit if empty
-        $src = $this->fetchParam('src', false, null, false, false);    
-        if (!$src)
-        {
-            return NULL;
-        }        
-        
-        // Get file URL and tag boolean
-        $file = $this->buildUrl($src, 'img');
-        $tag = $this->fetchParam('tag', false, null, true, false);
-        
-        // Get alt text and build alt tag
-        $alt = $this->fetchParam('alt', null, null, false, false);
-        if ($alt) 
-        {
-            $alt = ' alt="' . $alt . '"';
+            case "js":
+            case "script":
+            case "scripts":
+            case "javascript":
+                return '<script src="' . $file . '" ' . $attr . '></script>';
+            case "css":
+            case "style":
+            case "styles":
+            case "stylesheet":
+                return '<link href="' . $file . '" rel="stylesheet" ' . $attr . '>';
+            case "img":
+            case "image":
+            case "images":
+                return '<img src="' . $file . '" ' . $attr . '>';
+            default:
+                return $file;
         }
-
-        return ($tag) ? '<img src="' . $file . '" ' . $alt . '>' : $file;
     }
     
     /**
@@ -199,5 +125,25 @@ class Plugin_earl extends Plugin
         // Return fully formed URL
         return $this->base . $path . $src;       
     }
+    
+    /**
+     * getAttributes function
+     * 
+     * This function parses the attributes passed with the "attr" tag.
+     *
+     * @return string
+     */
+    private function getAttributes()
+    {
+		$attributes_string = '';
 
+		if ($attr = $this->fetchParam('attr', false, null, false, false)) {
+			$attributes_array = Helper::explodeOptions($attr, true);
+			foreach ($attributes_array as $key => $value) {
+				$attributes_string .= " {$key}='{$value}'";
+			}
+		}
+      
+        return $attributes_string;
+    }
 }
