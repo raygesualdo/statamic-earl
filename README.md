@@ -25,7 +25,7 @@ I know yer interested. Keep on readin' down to learn how to use it.
 Drop the `{{ earl:method }}` tag anywhere you want, where `method` is the config group E.A.R.L. will pull from.
 
 ###Parameters
- - __src__: Path to the file (defaults to theme name)
+ - __src__: File name; can include a path; defaults to the current theme name
  - __tag__: Determines if a tag should be included in output ([Tag Values Matrix](#tagvaluesmatrix))
  - __attr__: Attributes to be added to corresponding tag, e.g. `{{ earl:img attr="class:thumbnail|alt:This is the alt text" }}`
 
@@ -33,12 +33,14 @@ Drop the `{{ earl:method }}` tag anywhere you want, where `method` is the config
 
 <a id="tagvaluesmatrix"></a>
 
-| Value | Output | Notes |
-| ----- | ------ | ----- |
-| `js`<br>`script`<br>`scripts`<br>`javascript` | `<script src=""></script>` | |
-| `css`<br>`style`<br>`styles`<br>`stylesheet` | `<link href="" rel="stylesheet">` | |
-| `img`<br>`image`<br>`images` | `<img src="">` | |
-| `true` | `<script src=""></script>` or<br>`<link href="" rel="stylesheet">` or <br>`<img src="">` | This tag is for backwards compatibility with theme style helpers. Passing `true` will automatically assign the `js`, `css` or `img` methods to their corresponding tag output e.g. `{{ earl:js src="script.js" tag="true" }}` outputs `<script src="BASEPATH/GROUPPATH/script.js"></script>`. |
+| Value | Output |
+| ----- | ------ |
+| `js`<br>`script`<br>`scripts`<br>`javascript` | `<script src=""></script>` |
+| `css`<br>`style`<br>`styles`<br>`stylesheet` | `<link href="" rel="stylesheet">` |
+| `img`<br>`image`<br>`images` | `<img src="">` |
+| `true` | `<script src=""></script>` or<br>`<link href="" rel="stylesheet">` or <br>`<img src="">` | 
+
+__NOTE__: Setting `tag="true"` is for backwards compatibility with theme-style helpers. Passing `true` will automatically assign the `js`, `css` or `img` methods (and only those methods) to their corresponding tag output e.g. `{{ earl:js src="script.js" tag="true" }}` outputs `<script src="BASEPATH/GROUPPATH/script.js"></script>`.
 
 ##Config
 The config file has two sections: general settings and config groups. The general settings section currently consists of only the `_earl_base` variable. This is where you can set the base URL for all links that E.A.R.L. builds. The base URL should begin with 'http', 'https' or '//'. If none of those strings are present (i.e. a bare URL), '//' will be prepended to the URL.
