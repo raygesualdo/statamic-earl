@@ -26,7 +26,7 @@ Drop the `{{ earl:method }}` tag anywhere you want, where `method` is the config
 
 ###Parameters
  - __src__: File name; can include a path; defaults to the current theme name
- - __tag__: Determines if a tag should be included in output ([Tag Values Matrix](#tagvaluesmatrix))
+ - __tag__: Determines if a tag should be included in output (See the [Tag Values Matrix](#tag-values-matrix))
  - __attr__: Attributes to be added to corresponding tag, e.g. `{{ earl:img attr="class:thumbnail|alt:This is the alt text" }}`
 
 ###Tag Values Matrix 
